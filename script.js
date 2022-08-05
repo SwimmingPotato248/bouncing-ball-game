@@ -12,11 +12,11 @@ class Paddle {
   }
 
   moveLeft() {
-    this.x = this.x - 5;
+    this.x = Math.max(this.x - 1.5, 0);
   }
 
   moveRight() {
-    this.x = this.x + 5;
+    this.x = Math.min(this.x + 1.5, 500 - this.width);
   }
 
   set setWidth(val) {
@@ -78,35 +78,55 @@ function game() {
   const canvas = document.querySelector("canvas");
   const ctx = canvas.getContext("2d");
   const paddleWidth = 250;
-  const ball = new Ball(300, 50, Math.random(Math.PI * 2), 2);
+  const ball = new Ball(300, 50, Math.random(Math.PI / 2), 2);
   const paddle = new Paddle(200, paddleWidth);
 
   const startTime = Date.now();
   let point = 0;
   function draw() {
-    ctx.fillStyle = 'rgb(0, 0, 0)'
+    ctx.fillStyle = "rgb(0, 0, 0)";
     ctx.arc(ball.x, ball.y, 10, 0, Math.PI * 2);
     ctx.fill();
-    ctx.fillStyle = 'rgb(0, 0, 255)'
+    ctx.fillStyle = "rgb(0, 0, 255)";
     ctx.fillRect(paddle.x, canvas.height * 0.9, paddle.width, 20);
   }
+
+  let moveLeft = false;
+  let moveRight = false;
 
   document.addEventListener("keydown", (e) => {
     if (
       e.code === "ArrowRight" &&
       paddle.x + paddle.width <= canvas.width - 10
     ) {
-      paddle.moveRight();
+      moveRight = true;
     }
     if (e.code === "ArrowLeft" && paddle.x >= 10) {
-      paddle.moveLeft();
+      moveLeft = true;
     }
   });
+
+  document.addEventListener("keyup", (e) => {
+    if (e.code === "ArrowRight") {
+      moveRight = false;
+    }
+    if (e.code === "ArrowLeft") {
+      moveLeft = false;
+    }
+  });
+
   const gameplay = setInterval(() => {
     ctx.beginPath();
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw();
     ball.move();
+    if (moveLeft) {
+      paddle.moveLeft();
+    }
+
+    if (moveRight) {
+      paddle.moveRight();
+    }
     if (Math.floor(ball.y) < 10 && ball.angle < Math.PI) {
       ball.touchTop();
     }
@@ -148,4 +168,9 @@ function game() {
   }, 10);
 }
 
-game();
+const btn = document.getElementById("start");
+btn.addEventListener("click", () => {
+  const board = document.getElementById("game-board");
+  board.classList.remove("hidden");
+  game();
+});
