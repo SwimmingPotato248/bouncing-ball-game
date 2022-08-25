@@ -14,7 +14,9 @@ button {
 }
 
 canvas {
-  border: 1px solid black;
+  border: 3px solid black;
+  background-color: beige;
+  box-shadow: 5px 0px 10px #222;
 }
 
 .hidden {

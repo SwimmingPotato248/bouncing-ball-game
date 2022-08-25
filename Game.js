@@ -32,13 +32,10 @@ export default function game() {
   let moveRight = false;
 
   document.addEventListener("keydown", (e) => {
-    if (
-      e.code === "ArrowRight" &&
-      paddle.x + paddle.width <= canvas.width - 10
-    ) {
+    if (e.code === "ArrowRight") {
       moveRight = true;
     }
-    if (e.code === "ArrowLeft" && paddle.x >= 10) {
+    if (e.code === "ArrowLeft") {
       moveLeft = true;
     }
   });
@@ -103,10 +100,10 @@ export default function game() {
     paddle.setWidth = paddleWidth * 0.9 ** (level - 1);
     ball.setSpeed = 2 * 1.1 ** (level - 1);
 
-    if (ball.y > 600) {
+    if (ball.y > 500) {
       clearInterval(gameplay);
 
       document.querySelector("button").removeAttribute("disabled");
     }
-  }, 5);
+  }, 4);
 }
