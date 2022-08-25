@@ -20,7 +20,12 @@ export default function game() {
     ctx.arc(ball.x, ball.y, 10, 0, Math.PI * 2);
     ctx.fill();
     ctx.fillStyle = "rgb(0, 0, 255)";
-    ctx.fillRect(paddle.x, canvas.height * 0.9, paddle.width, 20);
+    ctx.fillRect(
+      paddle.x - paddle.width / 2,
+      canvas.height * 0.9,
+      paddle.width,
+      20
+    );
   }
 
   let moveLeft = false;
@@ -79,8 +84,8 @@ export default function game() {
       canvas.height * 0.9 - Math.floor(ball.y) < 10 &&
       canvas.height * 0.9 - Math.floor(ball.y) > -10 &&
       ball.angle > Math.PI &&
-      ball.x > paddle.x &&
-      ball.x < paddle.x + paddle.width
+      ball.x > paddle.x - paddle.width / 2 &&
+      ball.x < paddle.x + paddle.width / 2
     ) {
       moveLeft
         ? ball.touchPaddle("left")
