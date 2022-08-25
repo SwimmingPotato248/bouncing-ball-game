@@ -65,11 +65,16 @@ class Ball {
     }
   }
 
-  touchPaddle() {
+  touchPaddle(direction) {
     if (this.angle < Math.PI * 1.5) {
       this.angle = this.angle + 2 * (Math.PI - this.angle);
     } else {
       this.angle = 2 * Math.PI - this.angle;
+    }
+    if (direction === "left") {
+      this.angle = this.angle + Math.PI / 9;
+    } else if (direction === "right") {
+      this.angle = this.angle - Math.PI / 9;
     }
   }
 }
@@ -78,7 +83,12 @@ function game() {
   const canvas = document.querySelector("canvas");
   const ctx = canvas.getContext("2d");
   const paddleWidth = 250;
-  const ball = new Ball(300, 50, Math.random(Math.PI / 2), 2);
+  const ball = new Ball(
+    Math.floor(Math.random() * 300),
+    50,
+    Math.random(Math.PI / 8) + Math.PI / 8,
+    2
+  );
   const paddle = new Paddle(200, paddleWidth);
 
   const startTime = Date.now();
@@ -150,7 +160,11 @@ function game() {
       ball.x > paddle.x &&
       ball.x < paddle.x + paddle.width
     ) {
-      ball.touchPaddle();
+      moveLeft
+        ? ball.touchPaddle("left")
+        : moveRight
+        ? ball.touchPaddle("right")
+        : ball.touchPaddle();
     }
 
     point = Math.floor((Date.now() - startTime) / 100);
@@ -159,18 +173,18 @@ function game() {
     const level = 1 + Math.floor(point / 200);
     const showLevel = document.getElementById("level");
     showLevel.innerHTML = level;
-    paddle.setWidth = paddleWidth * 0.9 ** level;
-    ball.setSpeed = 2 * 1.1 ** level;
+    paddle.setWidth = paddleWidth * 0.9 ** (level - 1);
+    ball.setSpeed = 2 * 1.1 ** (level - 1);
 
     if (ball.y > 600) {
       clearInterval(gameplay);
+      btn.removeAttribute("disabled");
     }
-  }, 10);
+  }, 5);
 }
 
 const btn = document.getElementById("start");
 btn.addEventListener("click", () => {
-  const board = document.getElementById("game-board");
-  board.classList.remove("hidden");
+  btn.setAttribute("disabled", true);
   game();
 });
