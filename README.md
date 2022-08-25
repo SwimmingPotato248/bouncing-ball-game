@@ -1,3 +1,3 @@
-CodeGym Bouncing Ball Game
+# CodeGym Bouncing Ball Game
 
-Module 1 Case study
+# Module 1 Case study

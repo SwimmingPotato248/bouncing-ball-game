@@ -100,7 +100,8 @@ export default function game() {
 
     if (ball.y > 600) {
       clearInterval(gameplay);
-      btn.removeAttribute("disabled");
+
+      document.querySelector("button").removeAttribute("disabled");
     }
   }, 5);
 }

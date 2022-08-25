@@ -46,9 +46,9 @@ export default class Ball {
       this.angle = 2 * Math.PI - this.angle;
     }
     if (direction === "left") {
-      this.angle = this.angle + Math.PI / 6;
+      this.angle = this.angle + Math.PI / 8;
     } else if (direction === "right") {
-      this.angle = this.angle - Math.PI / 6;
+      this.angle = this.angle - Math.PI / 8;
     }
   }
 }

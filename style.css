@@ -1,3 +1,18 @@
+* {
+  box-sizing: border-box;
+}
+
+button {
+  background-color: orangered;
+  border: none;
+  cursor: pointer;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 3px 2px 2px black;
+  font-size: 1.2rem;
+}
+
 canvas {
   border: 1px solid black;
 }
@@ -7,8 +22,20 @@ canvas {
 }
 
 body {
+  background-color: #f3f3f3;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+}
+
+.stats {
+  display: flex;
+  justify-content: space-between;
+}
+
+.stats > * {
+  font-size: 1.1rem;
+  color: brown;
+  font-weight: 700;
 }
