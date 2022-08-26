@@ -102,6 +102,7 @@ export default function game() {
 
     if (ball.y > 500) {
       clearInterval(gameplay);
+      document.getElementById("modal").style.display = "block";
 
       document.querySelector("button").removeAttribute("disabled");
     }
